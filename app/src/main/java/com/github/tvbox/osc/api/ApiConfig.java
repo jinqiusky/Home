@@ -81,13 +81,10 @@ public class ApiConfig {
     }
 
     public void loadConfig(boolean useCache, LoadConfigCallback callback, Activity activity) {
-        String apiUrl = Hawk.get(HawkConfig.API_URL, "http://gg.gg/hfrcs");
-        if (apiUrl.isEmpty()) {
         String apiUrl = Hawk.get(HawkConfig.API_URL, "https://gitea.com/hfr1107/TVBOXZY/raw/branch/main/tvbox.json");
         if (apiUrl.isEmpty()) {
             callback.error("-1");
             return;
-        }
         }
         File cache = new File(App.getInstance().getFilesDir().getAbsolutePath() + "/" + MD5.encode(apiUrl));
         if (useCache && cache.exists()) {
