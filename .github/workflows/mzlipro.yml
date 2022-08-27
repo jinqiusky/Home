@@ -1,4 +1,4 @@
-name: mz-auto-Test
+name: Auto_Build
 
 on:
   schedule:
