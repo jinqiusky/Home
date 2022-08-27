@@ -84,10 +84,10 @@ jobs:
           rm -rf apk/
           mkdir -p apk/
           for file in `find ~ -name "*release*.apk" -print`; do
-            mv "$file" apk/TVBox_mzlipr-ori_${{ env.tag }}_Release.apk
+            mv "$file" apk/TVBox_release_${{ env.tag }}_Release.apk
           done
           for file in `find ~ -name "*debug*.apk" -print`; do
-            mv "$file" apk/TVBox_mzlipr-ori_${{ env.tag }}_Debug.apk
+            mv "$file" apk/TVBox_debug_${{ env.tag }}_Debug.apk
           done
       - name: Upload App To Artifact
         uses: actions/upload-artifact@v3
