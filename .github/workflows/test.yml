@@ -1,5 +1,4 @@
-name: Auto_Build
-
+name: Auto__Build
 on:
   schedule:
     - cron: 15,45 0-18 * * *
