@@ -4,7 +4,7 @@
 /Test?logo=github&label=Build)
 [![Channel](https://img.shields.io/badge/Follow-Telegram-blue.svg?logo=telegram)](https://t.me/TVBoxOSC)
 [![Download](https://img.shields.io/github/v/release/jinqiusky/Hometv1.0.0?color=orange&logoColor=orange&label=Download&logo=DocuSign)](https://github.com/jinqiusky/Hometv1.0.0/releases/latest) 
-[![Total](https://shields.io/github/downloads/jinqiusky/Hometv1.0.0/total?logo=Bookmeter&label=Counts&logoColor=yellow&color=yellow)](https://github.com/jinqiusky/Hometv1.0.0C/releases)
+[![Total](https://shields.io/github/downloads/jinqiusky/Hometv1.0.0/total?logo=Bookmeter&label=Counts&logoColor=yellow&color=yellow)](https://github.com/jinqiusky/Hometv1.0.0/releases)
 
 ## Credits
 This repo relies on the following third-party projects:
