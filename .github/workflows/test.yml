@@ -17,6 +17,9 @@ jobs:
           - userName: q215613905
             repoName: TVBoxOS
             branchName: main
+          - userName: M-LTV
+            repoName: TVBox-suanjin
+            branchName: main          
           - userName: takagen99
             repoName: Box
             branchName: main
