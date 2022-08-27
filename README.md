@@ -7,7 +7,8 @@
 
 ## Credits
 This repo relies on the following third-party projects:
-- [hfr1107/Hometv1.0.0](https://github.com/q215613905/TVBoxOS) (Updated: ab16277159148d0ed7260e4ccfed9bc1682133a9)
+- [q215613905/TVBoxOS](https://github.com/q215613905/TVBoxOS) (Updated: ab16277159148d0ed7260e4ccfed9bc1682133a9)
+- [hfr1107/Hometv1.0.0](https://github.com/hfr1107/Hometv1.0.0) (Updated: ab16277159148d0ed7260e4ccfed9bc1682133a9)
 - [mzlipro/boxsh](https://github.com/mzlipro/boxsh) (Updated: e02f6914653d8d9f7a844a207d3e25a29e97f71e)
 - [takagen99/Box](https://github.com/takagen99/Box) (Updated: e02f6914653d8d9f7a844a207d3e25a29e97f71e)
 # TV猫盒
