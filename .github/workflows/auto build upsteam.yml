@@ -1,4 +1,4 @@
-name: mzlce auto build
+name: mzce_Test
 
 on:
   schedule:
@@ -59,7 +59,6 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
-          
       - name: Prepare App
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
@@ -67,7 +66,7 @@ jobs:
           rm -rf apk/
           mkdir -p apk/
           for file in `find ~ -name "*release*.apk" -print`; do
-            mv "$file" apk/mzce_release_${{ env.tag }}.apk
+            mv "$file" apk/TVBox_release_${{ env.tag }}.apk
           done
       - name: Upload App To Artifact
         uses: actions/upload-artifact@v3
@@ -87,3 +86,15 @@ jobs:
             TVBoxOSC/${{ env.commitS }}-source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Push to master
+        if: ${{ env.commit }}
+        run: |
+          rm -rf TVBoxOSC
+          sed -i "/Updated Commit/c\\+ Updated Commit: ${{ env.commit }}" README.md
+          sed -i '/url =/d' ./.git/config
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git add --all
+          git commit -m "${{ env.commit }}"
+          git push -u -f origin master
