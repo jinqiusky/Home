@@ -29,6 +29,9 @@ jobs:
           - userName: mzlipro
             repoName: boxsh
             branchName: main
+          - userName: cai512
+            repoName: aqyTV
+            branchName: main
     steps:
       - name: Checkout
         uses: actions/checkout@v3
