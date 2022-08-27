@@ -10,8 +10,14 @@ on:
 
   
 env:
-  userName: mzlipro
+- userName: mzlipro
   repoName: boxce
+  branchName: main
+- userName: hfr1107
+  repoName: Hometv1.0.0
+  branchName: main
+- userName: takagen99
+  repoName: Box
   branchName: main
 
 jobs:
