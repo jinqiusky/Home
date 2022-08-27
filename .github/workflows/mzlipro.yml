@@ -8,8 +8,13 @@ on:
       - master
   workflow_dispatch:
 
-  
-env:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
 - userName: mzlipro
   repoName: boxce
   branchName: main
