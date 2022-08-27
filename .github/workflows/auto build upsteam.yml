@@ -1,18 +1,9 @@
-name: mzce_Test
+name: Auto Build upsteam
 
 on:
   schedule:
-    - cron: 15,45 0-18 * * *
-  push:
-    branches:
-      - master
+    - cron: 2 0-20 * * *
   workflow_dispatch:
-
-  
-env:
-  userName: mzlipro
-  repoName: boxce
-  branchName: main
 
 jobs:
   build:
@@ -24,9 +15,9 @@ jobs:
           fetch-depth: 0
       - name: Check New Commit
         run: |
-          upStream=https://github.com/${{ env.userName }}/${{ env.repoName }}
-          echo "upStream=$upStream" >> $GITHUB_ENV
-          commit=$(curl -sL $upStream/commits/${{ env.branchName }} |grep -o "/${{ env.userName }}/${{ env.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          upstreamCode=https://github.com/mzlipro/boxce
+          echo "upstreamCode=$upstreamCode" >> $GITHUB_ENV
+          commit=$(curl -sL $upstreamCode/commits/main |grep -o '/mzlipro/boxce/commit/[a-z0-9]\+' |head -1 | cut -d\/ -f5)
           if ! git log --oneline |grep -q "$commit"; then
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
@@ -34,7 +25,7 @@ jobs:
       - name: Checkout Source Code and Zip
         if: ${{ env.commit }}
         run: |
-          git clone ${{ env.upStream }} TVBoxOSC
+          git clone ${{ env.upstreamCode }} TVBoxOSC
           cd TVBoxOSC
           git checkout ${{ env.commit }}
           echo "tag=$(git log --date=format:'%Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
@@ -53,12 +44,20 @@ jobs:
           sed -i '$a\RELEASE_KEY_ALIAS=TVBoxOSC'            ./gradle.properties
           sed -i '$a\RELEASE_STORE_PASSWORD=TVBoxOSC'       ./gradle.properties
           sed -i '$a\RELEASE_KEY_PASSWORD=TVBoxOSC'         ./gradle.properties
-      - name: Build With Gradle
+      - name: Build Release With Gradle
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
         run: |
           chmod +x gradlew
           ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
+          
+      - name: Build Debug With Gradle
+        if: ${{ env.commit }}
+        working-directory: TVBoxOSC
+        run: |
+          chmod +x gradlew
+          ./gradlew assembledebug --build-cache --parallel --daemon --warning-mode all
+          
       - name: Prepare App
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
@@ -66,14 +65,11 @@ jobs:
           rm -rf apk/
           mkdir -p apk/
           for file in `find ~ -name "*release*.apk" -print`; do
-            mv "$file" apk/TVBox_release_${{ env.tag }}.apk
+            mv "$file" apk/TVBox_q215613905_${{ env.tag }}_Release.apk
           done
-      - name: Upload App To Artifact
-        uses: actions/upload-artifact@v3
-        if: ${{ env.commit }}
-        with:
-          name: com.github.tvbox.osc
-          path: TVBoxOSC/apk/*
+          for file in `find ~ -name "*debug*.apk" -print`; do
+            mv "$file" apk/TVBox_q215613905_${{ env.tag }}_Debug.apk
+          done
       - name: Release and Upload Assets
         uses: softprops/action-gh-release@v1
         if: ${{ env.commit }}
@@ -86,15 +82,3 @@ jobs:
             TVBoxOSC/${{ env.commitS }}-source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Push to master
-        if: ${{ env.commit }}
-        run: |
-          rm -rf TVBoxOSC
-          sed -i "/Updated Commit/c\\+ Updated Commit: ${{ env.commit }}" README.md
-          sed -i '/url =/d' ./.git/config
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git add --all
-          git commit -m "${{ env.commit }}"
-          git push -u -f origin master
