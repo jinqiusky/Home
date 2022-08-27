@@ -1,5 +1,5 @@
+name: Auto_Build
 
-name: Auto_Build_a
 on:
   schedule:
     - cron: 15,45 0-18 * * *
@@ -20,6 +20,12 @@ jobs:
             branchName: main
           - userName: takagen99
             repoName: Box
+            branchName: main
+          - userName: hfr1107
+            repoName: Hometv1.0.0
+            branchName: main
+          - userName: mzlipro
+            repoName: boxsh
             branchName: main
     steps:
       - name: Checkout
@@ -103,6 +109,7 @@ jobs:
             TVBoxOSC/${{ env.commitS }}-source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Push to master
         if: ${{ env.commit }}
         run: |
