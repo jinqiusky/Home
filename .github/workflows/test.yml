@@ -1,5 +1,5 @@
-name: Auto_Build_a
 
+name: Auto_Build_a
 on:
   schedule:
     - cron: 15,45 0-18 * * *
@@ -15,19 +15,12 @@ jobs:
       fail-fast: false
       matrix:
         include:
-- userName: mzlipro
-  repoName: boxce
-  branchName: main
-- userName: hfr1107
-  repoName: Hometv1.0.0
-  branchName: main
-- userName: takagen99
-  repoName: Box
-  branchName: main
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
+          - userName: q215613905
+            repoName: TVBoxOS
+            branchName: main
+          - userName: takagen99
+            repoName: Box
+            branchName: main
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -35,10 +28,11 @@ jobs:
           fetch-depth: 0
       - name: Check New Commit
         run: |
-          upStream=https://github.com/${{ env.userName }}/${{ env.repoName }}
+          upStream=https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}
           echo "upStream=$upStream" >> $GITHUB_ENV
-          commit=$(curl -sL $upStream/commits/${{ env.branchName }} |grep -o "/${{ env.userName }}/${{ env.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
-          if ! git log --oneline |grep -q "$commit"; then
+          commit=$(curl -sL $upStream/commits/${{ matrix.branchName }} |grep -o "/${{ matrix.userName }}/${{ matrix.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
+          #if ! git log --oneline |grep -q "$commit"; then
+          if ! grep -q "$commit" README.md; then
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
           fi
@@ -94,7 +88,7 @@ jobs:
         uses: actions/upload-artifact@v3
         if: ${{ env.commit }}
         with:
-          name: com.github.tvbox.osc
+          name: ${{ matrix.userName }}-${{ matrix.repoName }}
           path: TVBoxOSC/apk/*
       - name: Release and Upload Assets
         uses: softprops/action-gh-release@v1
@@ -102,7 +96,8 @@ jobs:
         with:
           name: ${{ env.tag }}
           tag_name: ${{ env.tag }}
-          body: ${{ env.commit }}
+          body: "Credit: ${{ matrix.userName }}/${{ matrix.repoName }}\n
+                 Commit: ${{ env.commit }}"
           files: |
             TVBoxOSC/apk/*
             TVBoxOSC/${{ env.commitS }}-source.zip
@@ -112,7 +107,7 @@ jobs:
         if: ${{ env.commit }}
         run: |
           rm -rf TVBoxOSC
-          sed -i "/Updated Commit/c\\+ Updated Commit: ${{ env.commit }}" README.md
+          sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
           sed -i '/url =/d' ./.git/config
           git config --local user.name "github-actions[bot]"
           git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
