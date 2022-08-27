@@ -1,5 +1,4 @@
-name: Auto Build upsteam
-name: mz-auto-Test
+name: Auto_Build_upsteam
 
 on:
   schedule:
