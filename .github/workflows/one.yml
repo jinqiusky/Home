@@ -1,11 +1,13 @@
 name: Auto_TVbox
+
 on:
   schedule:
-    - cron: 15,45 12-20 * * *
+    - cron: 15,45 11-20 * * *
   push:
     branches:
       - master
   workflow_dispatch:
+
 
 jobs:
   build:
