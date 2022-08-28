@@ -1,4 +1,4 @@
-name: Auto_TVbox
+name: TVbox Auto
 
 on:
   schedule:
