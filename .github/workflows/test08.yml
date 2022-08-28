@@ -1,7 +1,7 @@
 name: Auto_Build_
 on:
   schedule:
-    - cron: 15,45 18-06 * * *
+    - cron: 15,45 12-20 * * *
   push:
     branches:
       - master
