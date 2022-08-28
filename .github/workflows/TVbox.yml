@@ -1,13 +1,11 @@
-name: TVbox Auto
-
+name: Auto_Build
 on:
   schedule:
-    - cron: 15,45 11-20 * * *
+    - cron: 15,45 0-18 * * *
   push:
     branches:
       - master
   workflow_dispatch:
-
 
 jobs:
   build:
@@ -116,13 +114,13 @@ jobs:
             TVBoxOSC/${{ env.commitS }}-source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-     - name: Post To Telegram
+      - name: Post To Telegram
         if: ${{ env.commit }}
         run: |
           if [ -n "${{ secrets.CHANNEL_ID }}" ] && [ -n "${{ secrets.BOT_TOKEN }}" ]; then
             OUTPUT="${{ github.workspace }}/TVBoxOSC/apk/"
             export appRelease=$(find $OUTPUT -name "*release*.apk")
-            export appRelease=$(find $OUTPUT -name "*debug*.apk")
+            export sourceCode="${{ github.workspace }}/TVBoxOSC/${{ env.commitS }}-source.zip"
             lastCommit=`git log --oneline |grep -o '[a-z0-9]\{40\}' |head -1`
             cd TVBoxOSC
             export LESSCHARSET=utf-8
