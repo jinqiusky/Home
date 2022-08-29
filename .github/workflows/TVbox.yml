@@ -1,7 +1,7 @@
 name: Auto_Build
 on:
   schedule:
-    - cron: 15,45 0-18 * * *
+    - cron: 45 0-18 * * *
   push:
     branches:
       - master
@@ -122,15 +122,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
-      - name: Push to master
-        if: ${{ env.commit }}
-        run: |
-          rm -rf TVBoxOSC
-          sed -i "/${{ matrix.userName }}\/${{ matrix.repoName }}/s#Updated: [a-zA-Z0-9]*#Updated: ${{ env.commit }}#" README.md
-          sed -i '/url =/d' ./.git/config
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git remote set-url --add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
-          git add --all
-          git commit -m "${{ env.commit }}"
-          git push -u -f origin master
