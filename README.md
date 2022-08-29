@@ -14,7 +14,7 @@ This repo relies on the following third-party projects:
 - [hfr1107/Hometv1.0.0](https://github.com/hfr1107/Hometv1.0.0) (Updated:aa70320)
 - [mzlipro/boxsh](https://github.com/mzlipro/boxsh) (Updated:83fb4ee8655e1dc3e6b0d380863a55d54e4f3450 )- 
 - [cai512/aqyTV](https://github.com/cai512/aqyTV) (Updated: a0730b33681aa280f21827d886a071df147c864a)
-- [chengxue2020/takagen99](https://github.com/chengxue2020/takagen99) (Updated: a0730b33681aa280f21827d886a071df147c864a)
+- [chengxue2020/takagen99](https://github.com/chengxue2020/takagen99) (Updated: bbb635c8f39da397296a2893b9283f753ece14f0)
 # TV猫盒
 ## _在TV盒子里抓住了一直猫咪~o( =∩ω∩= )m_
 
