@@ -38,7 +38,9 @@ jobs:
           - userName: Damonwei1120
             repoName: 8
             branchName: main
-           
+         -  userName: chxxyz2004
+            repoName:tvbox
+            branchName: main 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
