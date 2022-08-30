@@ -39,7 +39,7 @@ jobs:
             repoName: 8
             branchName: main
          -  userName: chxxyz2004
-            repoName:tvbox
+            repoName: tvbox
             branchName: main 
     steps:
       - name: Checkout
