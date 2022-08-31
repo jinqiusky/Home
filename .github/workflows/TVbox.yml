@@ -1,4 +1,4 @@
-name: Auto_Build0
+name: Auto_Build
 
 on:
   schedule:
@@ -39,7 +39,7 @@ jobs:
           - userName: Damonwei1120
             repoName: 8
             branchName: main
-         -  userName: chxxyz2004
+          - userName: chxxyz2004
             repoName: tvbox
             branchName: main 
     steps:
