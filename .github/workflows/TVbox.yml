@@ -28,7 +28,10 @@ jobs:
             repoName: q215613905-Tbox
             branchName: main
           - userName: hfr1107
-            repoName: Hometv1.0.0
+            repoName: Hometv1.0.0-Public
+            branchName: main
+          - userName: mzlipro
+            repoName: textile
             branchName: main
           - userName: mzlipro
             repoName: boxsh
