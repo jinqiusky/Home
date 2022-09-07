@@ -30,8 +30,8 @@ jobs:
           - userName: hfr1107
             repoName: Hometv1.0.0-Public
             branchName: main
-          - userName: mzlipro
-            repoName: textile
+          - userName: kensonmiao
+            repoName: CatVodTVOSC
             branchName: main
           - userName: mzlipro
             repoName: boxsh
