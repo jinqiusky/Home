@@ -15,6 +15,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+           - userName: kensonmiao
+            repoName: CatVodTVOSC
+            branchName: main
           - userName: q215613905
             repoName: TVBoxOS
             branchName: main
@@ -29,9 +32,6 @@ jobs:
             branchName: main
           - userName: hfr1107
             repoName: Hometv1.0.0-Public
-            branchName: main
-          - userName: kensonmiao
-            repoName: CatVodTVOSC
             branchName: main
           - userName: mzlipro
             repoName: boxsh
