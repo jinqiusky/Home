@@ -17,7 +17,6 @@ jobs:
           - userName: kensonmiao
             repoName: CatVodTVOSC
             branchName: main
-
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -41,6 +40,14 @@ jobs:
           git checkout ${{ env.commit }}
           echo "tag=$(git log --date=format:'%Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
           zip -q -x ".git/*" -r ${{ env.commitS }}-source.zip .
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ~/TVBoxOSC/.gradle/caches
+            ~/TVBoxOSC/.gradle/wrapper
+          key: ${{ runner.os }}-${{ matrix.userName }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-${{ matrix.userName }}-
       - name: Release Apk Sign
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
@@ -68,7 +75,7 @@ jobs:
           rm -rf apk/
           mkdir -p apk/
           for file in `find ~ -name "*release*.apk" -print`; do
-            mv "$file" apk/${{ matrix.userName }}_release_${{ env.tag }}.apk
+            mv "$file" apk/TVBox_release_${{ env.tag }}.apk
           done
       - name: Upload App To Artifact
         uses: actions/upload-artifact@v3
@@ -86,6 +93,6 @@ jobs:
                  Commit: ${{ env.commit }}"
           files: |
             TVBoxOSC/apk/*
-            TVBoxOSC/${{ matrix.userName }}-${{ env.commitS }}-source.zip
+            TVBoxOSC/${{ env.commitS }}-source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
