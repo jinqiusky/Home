@@ -1,7 +1,7 @@
 name: KM_Test
 on:
   schedule:
-    - cron: 45 20-23 * * *
+    - cron: 15,45 11-13,22-23 * * *
   push:
     branches:
       - master
@@ -41,13 +41,19 @@ jobs:
           echo "tag=$(git log --date=format:'%Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
           zip -q -x ".git/*" -r ${{ env.commitS }}-source.zip .
       - uses: actions/cache@v3
+        if: ${{ env.commit }}
         with:
           path: |
-            ~/TVBoxOSC/.gradle/caches
-            ~/TVBoxOSC/.gradle/wrapper
+            ~/.gradle/caches
+            ~/.gradle/wrapper
           key: ${{ runner.os }}-${{ matrix.userName }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.userName }}-
+      - name: Add Build Repo
+        if: ${{ env.commit }}
+        working-directory: TVBoxOSC
+        run: |
+          sed -i "/crosswalk/a\        maven { url 'http://9xi4o.tk/maven2' }" build.gradle
       - name: Release Apk Sign
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
@@ -62,10 +68,12 @@ jobs:
           sed -i '$a\RELEASE_KEY_ALIAS=TVBoxOSC'            ./gradle.properties
           sed -i '$a\RELEASE_STORE_PASSWORD=TVBoxOSC'       ./gradle.properties
           sed -i '$a\RELEASE_KEY_PASSWORD=TVBoxOSC'         ./gradle.properties
-      - name: Build Debug With Gradle
+      - name: Build  With Gradle
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
         run: |
+          chmod +x gradlew
+          ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
           chmod +x gradlew
           ./gradlew assembledebug --build-cache --parallel --daemon --warning-mode all
           
@@ -75,9 +83,12 @@ jobs:
         run: |
           rm -rf apk/
           mkdir -p apk/
+          for file in `find ~ -name "*release*.apk" -print`; do
+            mv "$file" apk/${{ matrix.userName }}_release_${{ env.tag }}_Release.apk
+          done
           for file in `find ~ -name "*debug*.apk" -print`; do
             mv "$file" apk/${{ matrix.userName }}_debug_${{ env.tag }}_Debug.apk
-          done  
+          done   
       - name: Upload App To Artifact
         uses: actions/upload-artifact@v3
         if: ${{ env.commit }}
@@ -91,9 +102,9 @@ jobs:
           name: ${{ env.tag }}
           tag_name: ${{ env.tag }}
           body: "Credit: ${{ matrix.userName }}/${{ matrix.repoName }}\n
-                 Commit: ${{ env.commit }}"
+                 Commit: ${{ env.commit }}
           files: |
             TVBoxOSC/apk/*
-            TVBoxOSC/${{ env.commitS }}-source.zip
+            TVBoxOSC/${{ matrix.userName }}-${{ env.commitS }}-source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
