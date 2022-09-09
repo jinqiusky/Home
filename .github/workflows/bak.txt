@@ -14,6 +14,9 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - userName: kensonmiao
+            repoName: CatVodTVOSC
+            branchName: main
           - userName: q215613905
             repoName: TVBoxOS
             branchName: main
@@ -23,15 +26,24 @@ jobs:
           - userName: takagen99
             repoName: Box
             branchName: main
-          - userName: hfr1107
-            repoName: Hometv1.0.0
+          - userName: chengxue2020
+            repoName: q215613905-Tbox
             branchName: main
-          - userName: mzlipro
-            repoName: boxsh
+          - userName: hfr1107
+            repoName: Hometv1.0.0-Public
             branchName: main
           - userName: cai512
             repoName: aqyTV
             branchName: main
+          - userName: chengxue2020
+            repoName: takagen99
+            branchName: main
+          - userName: Damonwei1120
+            repoName: 8
+            branchName: main
+          - userName: jinqiusky
+            repoName: CatVodTVOSC28
+            branchName: main 
     steps:
       - name: Checkout
         uses: actions/checkout@v3
