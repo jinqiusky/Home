@@ -1,8 +1,8 @@
-name: Auto_Build
+name: Auto_Build_Test
 
 on:
   schedule:
-    - cron: 15,45 0-18,22-23 * * *
+    - cron: 50 12-14,22-23 * * *
   push:
     branches:
       - master
@@ -90,7 +90,7 @@ jobs:
           sed -i '$a\RELEASE_KEY_ALIAS=TVBoxOSC'            ./gradle.properties
           sed -i '$a\RELEASE_STORE_PASSWORD=TVBoxOSC'       ./gradle.properties
           sed -i '$a\RELEASE_KEY_PASSWORD=TVBoxOSC'         ./gradle.properties
-          
+
       - name: Build Release With Gradle
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
@@ -104,20 +104,19 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assembledebug --build-cache --parallel --daemon --warning-mode all
-          
       - name: Prepare App
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
         run: |
           rm -rf apk/
           mkdir -p apk/
+          
           for file in `find ~ -name "*release*.apk" -print`; do
-            mv "$file" apk/${{ matrix.userName }}_release_${{ env.tag }}_Release.apk
+            mv "$file" apk/${{ matrix.userName }}__release_${{ env.tag }}.apk
           done
           for file in `find ~ -name "*debug*.apk" -print`; do
             mv "$file" apk/${{ matrix.userName }}_debug_${{ env.tag }}_Debug.apk
-          done          
-          
+          done   
       - name: Upload App To Artifact
         uses: actions/upload-artifact@v3
         if: ${{ env.commit }}
@@ -126,15 +125,14 @@ jobs:
           path: TVBoxOSC/apk/*
       - name: Release and Upload Assets
         uses: softprops/action-gh-release@v1
-        
         if: ${{ env.commit }}
         with:
           name: ${{ env.tag }}
           tag_name: ${{ env.tag }}
-          body: "Credit: ${{ matrix.userName }}/${{ matrix.repoName }} \n Commit: ${{ env.commit }}"
-
+          body: "Credit: ${{ matrix.userName }}/${{ matrix.repoName }}\n"
+          Commit: ${{ env.commit }}"
           files: |
             TVBoxOSC/apk/*
-            TVBoxOSC/${{ matrix.userName }}-${{ env.commitS }}-source.zip
+            TVBoxOSC/${{ env.commitS }}-source.zip
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}         
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
