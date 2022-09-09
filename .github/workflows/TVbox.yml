@@ -2,7 +2,7 @@ name: Auto_Build_Test
 
 on:
   schedule:
-    - cron: 50 12-14,22-23 * * *
+    - cron: 50 08-11,20-22 * * *
   push:
     branches:
       - master
@@ -18,15 +18,9 @@ jobs:
           - userName: kensonmiao
             repoName: CatVodTVOSC
             branchName: main
-          - userName: q215613905
-            repoName: TVBoxOS
-            branchName: main
           - userName: M-LTV
             repoName: TVBox-suanjin
             branchName: main          
-          - userName: takagen99
-            repoName: Box
-            branchName: main
           - userName: chengxue2020
             repoName: q215613905-Tbox
             branchName: main
@@ -39,12 +33,10 @@ jobs:
           - userName: chengxue2020
             repoName: takagen99
             branchName: main
-          - userName: Damonwei1120
-            repoName: 8
-            branchName: main
           - userName: jinqiusky
             repoName: CatVodTVOSC28
             branchName: main 
+
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -69,13 +61,19 @@ jobs:
           echo "tag=$(git log --date=format:'%Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
           zip -q -x ".git/*" -r ${{ env.commitS }}-source.zip .
       - uses: actions/cache@v3
+        if: ${{ env.commit }}
         with:
           path: |
-            ~/TVBoxOSC/.gradle/caches
-            ~/TVBoxOSC/.gradle/wrapper
+            ~/.gradle/caches
+            ~/.gradle/wrapper
           key: ${{ runner.os }}-${{ matrix.userName }}-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-${{ matrix.userName }}-
+      - name: Add Build Repo
+        if: ${{ env.commit }}
+        working-directory: TVBoxOSC
+        run: |
+          sed -i "/crosswalk/a\        maven { url 'http://9xi4o.tk/maven2' }" build.gradle
       - name: Release Apk Sign
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
@@ -90,18 +88,13 @@ jobs:
           sed -i '$a\RELEASE_KEY_ALIAS=TVBoxOSC'            ./gradle.properties
           sed -i '$a\RELEASE_STORE_PASSWORD=TVBoxOSC'       ./gradle.properties
           sed -i '$a\RELEASE_KEY_PASSWORD=TVBoxOSC'         ./gradle.properties
-
+          
       - name: Build With Gradle
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
         run: |
           chmod +x gradlew
           ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
-          
-      - name: Build Debug With Gradle
-        if: ${{ env.commit }}
-        working-directory: TVBoxOSC
-        run: |
           chmod +x gradlew
           ./gradlew assembledebug --build-cache --parallel --daemon --warning-mode all
       - name: Prepare App
@@ -133,6 +126,6 @@ jobs:
           Commit: ${{ env.commit }}"
           files: |
             TVBoxOSC/apk/*
-            TVBoxOSC/${{ env.commitS }}-source.zip
+            TVBoxOSC/${{ env.commitS }}-${{ matrix.userName }}-source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
