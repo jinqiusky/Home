@@ -98,8 +98,6 @@ jobs:
         run: |
           chmod +x gradlew
           ./gradlew assemblerelease --build-cache --parallel --daemon --warning-mode all
-          chmod +x gradlew
-          ./gradlew assembledebug --build-cache --parallel --daemon --warning-mode all
       - name: Prepare App
         if: ${{ env.commit }}
         working-directory: TVBoxOSC
@@ -110,9 +108,6 @@ jobs:
           for file in `find ~ -name "*release*.apk" -print`; do
             mv "$file" apk/${{ matrix.userName }}__release_${{ env.tag }}.apk
           done
-          for file in `find ~ -name "*debug*.apk" -print`; do
-            mv "$file" apk/${{ matrix.userName }}_debug_${{ env.tag }}_Debug.apk
-          done   
       - name: Upload App To Artifact
         uses: actions/upload-artifact@v3
         if: ${{ env.commit }}
