@@ -62,7 +62,7 @@ jobs:
           cd TVBoxOSC
           git checkout ${{ env.commit }}
           echo "tag=$(git log --date=format:'%Y%m%d-%H%M' --pretty=format:%cd ${{ env.commitS }} -1)" >> $GITHUB_ENV
-          zip -q -x ".git/*" -r ${{ env.commitS }}-source.zip .
+          zip -q -x ".git/*" -r ${{ env.commitS }}-${{ matrix.userName }}-source.zip .
       - uses: actions/cache@v3
         if: ${{ env.commit }}
         with:
