@@ -18,6 +18,9 @@ jobs:
           - userName: kensonmiao
             repoName: CatVodTVOSC
             branchName: main
+          - userName: jyt0106
+            repoName: Box
+            branchName: main
           - userName: M-LTV
             repoName: TVBox-suanjin
             branchName: main          
