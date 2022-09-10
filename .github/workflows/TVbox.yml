@@ -39,6 +39,9 @@ jobs:
           - userName: jinqiusky
             repoName: CatVodTVOSC28
             branchName: main 
+          - userName: ccibg
+            repoName: TVBoxOS
+            branchName: main
 
     steps:
       - name: Checkout
