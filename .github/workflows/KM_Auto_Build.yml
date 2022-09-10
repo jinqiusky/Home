@@ -1,8 +1,7 @@
-name: Test
-  
+name: KM_Auto_Build
 on:
   schedule:
-    - cron: 15,45 0-18,22-23 * * *
+    - cron: 10 10-13,22-23 * * *
   push:
     branches:
       - master
@@ -23,7 +22,6 @@ jobs:
             branchName: main
           - userName: kensonmiao
             repoName: CatVodTVOSC
-            branchName: main
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -34,7 +32,6 @@ jobs:
           upStream=https://github.com/${{ matrix.userName }}/${{ matrix.repoName }}
           echo "upStream=$upStream" >> $GITHUB_ENV
           commit=$(curl -sL $upStream/commits/${{ matrix.branchName }} |grep -o "/${{ matrix.userName }}/${{ matrix.repoName }}/commit/[a-z0-9]\+" |head -1 | cut -d\/ -f5)
-          #if ! git log --oneline |grep -q "$commit"; then
           if ! grep -q "$commit" README.md; then
             echo "commit=$commit" >> $GITHUB_ENV
             echo "commitS=${commit:0:7}" >> $GITHUB_ENV
@@ -102,9 +99,10 @@ jobs:
         with:
           name: ${{ env.tag }}
           tag_name: ${{ env.tag }}
-          body: "Credit: ${{ matrix.userName }}/${{ matrix.repoName }}\n Commit: ${{ env.commit }}"
+          body: "Credit: ${{ matrix.userName }}/${{ matrix.repoName }}\n
+                 Commit: ${{ env.commit }}"
           files: |
             TVBoxOSC/apk/*
-            TVBoxOSC/${{ env.commitS }}-source.zip
+            TVBoxOSC/${{ env.commitS }}- ${{ matrix.userName }}-source.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
