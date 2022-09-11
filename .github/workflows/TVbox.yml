@@ -17,10 +17,7 @@ jobs:
         include:
           - userName: kensonmiao
             repoName: CatVodTVOSC
-            branchName: main
-          - userName: jyt0106
-            repoName: Box
-            branchName: main          
+            branchName: main       
           - userName: chengxue2020
             repoName: q215613905-Tbox
             branchName: main
@@ -33,9 +30,6 @@ jobs:
           - userName: chengxue2020
             repoName: takagen99
             branchName: main
-          - userName: jinqiusky
-            repoName: CatVodTVOSC28
-            branchName: main 
           - userName: ccibg
             repoName: TVBoxOS
             branchName: main
