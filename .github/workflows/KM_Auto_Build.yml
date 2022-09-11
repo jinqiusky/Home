@@ -20,8 +20,8 @@ jobs:
           - userName: takagen99
             repoName: Box
             branchName: main
-          - userName: kensonmiao
-            repoName: CatVodTVOSC
+          - userName: jinqiusky
+            repoName: CatVodTVOSC28
     steps:
       - name: Checkout
         uses: actions/checkout@v3
