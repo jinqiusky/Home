@@ -36,6 +36,10 @@ jobs:
           - userName: ccibg
             repoName: TVBoxOS
             branchName: main
+          - userName: jyt0106
+            repoName: Box
+            branchName: main
+            
 
     steps:
       - name: Checkout
