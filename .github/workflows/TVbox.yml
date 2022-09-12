@@ -28,7 +28,7 @@ jobs:
             repoName: Hometv1.0.0-Public
             branchName: main
           - userName: cai512
-            repoName: aqyTV
+            repoName: CatVodTVOSC
             branchName: main
           - userName: chengxue2020
             repoName: takagen99
