@@ -37,7 +37,7 @@ jobs:
             repoName: TVBoxOS
             branchName: main
           - userName: jyt0106
-            repoName: Box
+            repoName: Z
             branchName: main
             
 
