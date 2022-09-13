@@ -18,9 +18,6 @@ jobs:
           - userName: kensonmiao
             repoName: CatVodTVOSC
             branchName: main  
-          - userName: mzlipro
-            repoName: textile
-            branchName: main
           - userName: chengxue2020
             repoName: q215613905-Tbox
             branchName: main
