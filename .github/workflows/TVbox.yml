@@ -30,8 +30,8 @@ jobs:
           - userName: ccibg
             repoName: TVBoxOS
             branchName: main
-          - userName: jyt0106
-            repoName: Z
+          - userName: mayishidai
+            repoName: TVBoxOS
             branchName: main
             
     steps:
