@@ -33,6 +33,10 @@ jobs:
           - userName: mayishidai
             repoName: TVBoxOS
             branchName: main
+          - userName: lt3611
+            repoName: TVBoxOS-j
+            branchName: main
+
             
     steps:
       - name: Checkout
