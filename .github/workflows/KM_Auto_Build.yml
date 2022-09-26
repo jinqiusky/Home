@@ -39,6 +39,10 @@ jobs:
           - userName: Dwei1120
             repoName: test
             branchName: main
+          - userName: hfr1107
+            repoName: HomeBox
+            branchName: main
+
 
     steps:
       - name: Checkout
