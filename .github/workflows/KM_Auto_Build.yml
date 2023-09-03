@@ -45,9 +45,6 @@ jobs:
           - userName: hfr1107
             repoName: HomeBox
             branchName: main
-          - userName: Dwei1120
-            repoName: 160
-            branchName: main
           - userName: q1049699884
             repoName: TVBoxOSC_LsTest
             branchName: main
@@ -56,6 +53,9 @@ jobs:
             branchName: main
           - userName:  mlabalabala
             repoName: BBox
+            branchName: main
+          - userName:  winterxg
+            repoName: TVBoxOS4.4
             branchName: main
 
 
