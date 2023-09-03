@@ -36,7 +36,12 @@ jobs:
           - userName: lt3611
             repoName: TVBoxOS-j
             branchName: main
-
+          - userName: Dwei1120
+            repoName: tv2.6
+            branchName: main
+          - userName: jinqiusky
+            repoName: AutoX
+            branchName: dev-test
 
           - userName: lt3611
             repoName: Box-t
