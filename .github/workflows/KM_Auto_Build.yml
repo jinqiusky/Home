@@ -51,6 +51,13 @@ jobs:
           - userName: q1049699884
             repoName: TVBoxOSC_LsTest
             branchName: main
+          - userName:  lzk23559
+            repoName: TVBoxOS_Mod
+            branchName: main
+          - userName:  mlabalabala
+            repoName: BBox
+            branchName: main
+
 
 
 
