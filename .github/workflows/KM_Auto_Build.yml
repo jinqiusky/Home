@@ -37,13 +37,16 @@ jobs:
             repoName: CatVodTVOSC
             branchName: main  
           - userName: Dwei1120
-            repoName: tv1.5
+            repoName: tv2.6
+            branchName: main
+          - userName: 285432769
+            repoName: TVBoxOSC
             branchName: main
           - userName: hfr1107
             repoName: HomeBox
             branchName: main
           - userName: Dwei1120
-            repoName: tv1.5
+            repoName: 160
             branchName: main
 
 
