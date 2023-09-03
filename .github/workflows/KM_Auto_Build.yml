@@ -48,6 +48,10 @@ jobs:
           - userName: Dwei1120
             repoName: 160
             branchName: main
+          - userName: q1049699884
+            repoName: TVBoxOSC_LsTest
+            branchName: main
+
 
 
 
