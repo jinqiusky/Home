@@ -52,7 +52,7 @@ jobs:
             repoName: TVBoxOS_Mod
             branchName: main
           - userName:  mlabalabala
-            repoName: BBox
+            repoName: box
             branchName: main
           - userName:  winterxg
             repoName: TVBoxOS4.4
