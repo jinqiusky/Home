@@ -37,7 +37,7 @@ jobs:
             repoName: CatVodTVOSC
             branchName: main  
           - userName: Dwei1120
-            repoName: tv2.6
+            repoName: 160
             branchName: main
           - userName: 285432769
             repoName: TVBoxOSC
